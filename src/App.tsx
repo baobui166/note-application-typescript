@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import useLocalStorage from "./assets/utils/useLocalStorage";
 import { v4 as uuidV4 } from "uuid";
 import NoteList from "./assets/components/NoteList";
+import NoteLayout from "./assets/components/NoteLayout";
 
 export type Note = {
   id: string;
@@ -59,7 +60,10 @@ function App() {
   return (
     <Container className="my-4">
       <Routes>
-        <Route path="/" element={<NoteList />} />
+        <Route
+          path="/"
+          element={<NoteList availableTags={tags} notes={noteWithTags} />}
+        />
         <Route
           path="/new"
           element={
@@ -70,7 +74,7 @@ function App() {
             />
           }
         />
-        <Route path="/:id" element={<h1>new</h1>}>
+        <Route path="/:id" element={<NoteLayout notes={noteWithTags} />}>
           <Route index element={<h2>show</h2>}></Route>
           <Route path="edit" element={<h2>edit</h2>}></Route>
         </Route>
